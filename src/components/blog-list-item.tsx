@@ -29,7 +29,7 @@ const BlogListItem = ({ post, showTags = true }: BlogListItemProps) => (
     <p sx={{ color: `secondary`, mt: 1, a: { color: `primary` }, fontSize: [0.5, 0.5, 1] }}>
       {post.excerpt}
     </p>
-    <p sx={{ color: `secondary`, mt: 1, a: { color: `primary` }, fontSize: [1, 1, 2] }}>
+    <p sx={{ color: `secondary`, mt: 1, a: { color: `primary` }, fontSize: [0.5, 1, 1] }}>
       <time>{post.date}</time>
       {post.tags && showTags && (
         <React.Fragment>
