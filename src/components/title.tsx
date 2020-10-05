@@ -32,9 +32,9 @@ const Title = ({ text, children, as = `h2`, className = `` }: TitleProps) => (
     </Box>
     <div
       sx={{
-        color: `secondary`,
+        color: `primary`,
         a: {
-          variant: `links.secondary`,
+          variant: `links.primary`,
         },
       }}
     >
