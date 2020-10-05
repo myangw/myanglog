@@ -9,11 +9,11 @@ module.exports = {
     siteTitleAlt: `Myanglog`,
     siteTitle: `Myanglog`,
     author: `Myang`,
-    siteLanguage: `Korean`,
-    siteUrl: `www.myanglog.com`,
-    siteHeadline: `:D`,
-    siteDescription: `Simple blog`,
-    siteImage: ``
+    siteLanguage: `KR`,
+    siteUrl: `https://www.myanglog.com`,
+    siteHeadline: `Myanglog`,
+    siteDescription: `Blog by myang - dev/review/notes`,
+    siteImage: `/myanglog-312.png`
   },
   plugins: [
     {
