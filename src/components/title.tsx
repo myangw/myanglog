@@ -15,10 +15,8 @@ const Title = ({ text, children, as = `h2`, className = `` }: TitleProps) => (
     sx={{
       justifyContent: `space-between`,
       alignItems: `center`,
-      borderBottomStyle: `solid`,
-      borderBottomWidth: `1px`,
-      borderBottomColor: `divide`,
-      pb: 3,
+      pt: 5,
+      pb: 1,
       mb: 4,
       flexFlow: `wrap`,
       boxSizing: `border-box`,

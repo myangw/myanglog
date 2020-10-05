@@ -9,23 +9,7 @@ import usePosts from "../hooks/use-posts"
 import replaceSlashes from "../utils/replaceSlashes"
 import SEO from "./seo"
 
-type PostsProps = {
-  posts: {
-    slug: string
-    title: string
-    date: string
-    excerpt: string
-    description: string
-    timeToRead?: number
-    tags?: {
-      name: string
-      slug: string
-    }[]
-  }[]
-  [key: string]: any
-}
-
-const Blog = ({ posts }: PostsProps) => {
+const Blog = () => {
   const { tagsPath, basePath } = useMinimalBlogConfig()
   const customizedPosts = usePosts()
 

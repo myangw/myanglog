@@ -4,45 +4,20 @@ import { Link } from "gatsby"
 import Layout from "./layout"
 import Title from "./title"
 import Listing from "./listing"
-import List from "./list"
 import useMinimalBlogConfig from "../hooks/use-minimal-blog-config"
 import replaceSlashes from "../utils/replaceSlashes"
-// @ts-ignore
-import Hero from "../texts/hero"
-// @ts-ignore
-import Bottom from "../texts/bottom"
+import usePosts from "../hooks/use-posts"
 
-type PostsProps = {
-  posts: {
-    slug: string
-    title: string
-    date: string
-    excerpt: string
-    description: string
-    timeToRead?: number
-    tags?: {
-      name: string
-      slug: string
-    }[]
-  }[]
-  [key: string]: any
-}
-
-const Homepage = ({ posts }: PostsProps) => {
+const Homepage = () => {
   const { basePath, blogPath } = useMinimalBlogConfig()
+  const customizedPosts = usePosts()
 
   return (
     <Layout>
-      <section sx={{ mb: [5, 6, 7], p: { fontSize: [1, 2, 3], mt: 2 } }}>
-        <Hero />
-      </section>
       <Title text="Latest Posts">
         <Link to={replaceSlashes(`/${basePath}/${blogPath}`)}>Read all posts</Link>
       </Title>
-      <Listing posts={posts} showTags={false} />
-      <List>
-        <Bottom />
-      </List>
+      <Listing posts={customizedPosts.nodes} showTags={false} />
     </Layout>
   )
 }

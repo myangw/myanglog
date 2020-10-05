@@ -6,7 +6,14 @@ const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
   siteMetadata: {
-    siteTitleAlt: `Minimal Blog - Gatsby Theme`,
+    siteTitleAlt: `Myanglog`,
+    siteTitle: `Myanglog`,
+    author: `Myang`,
+    siteLanguage: `Korean`,
+    siteUrl: `www.myanglog.com`,
+    siteHeadline: `:D`,
+    siteDescription: `Simple blog`,
+    siteImage: ``
   },
   plugins: [
     {
@@ -25,12 +32,8 @@ module.exports = {
         ],
         externalLinks: [
           {
-            name: `Twitter`,
-            url: `https://twitter.com/lekoarts_de`,
-          },
-          {
             name: `Instagram`,
-            url: `https://www.instagram.com/lekoarts.de/`,
+            url: `https://www.instagram.com/myang.log/`,
           },
         ],
       },
