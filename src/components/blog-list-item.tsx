@@ -26,10 +26,10 @@ const BlogListItem = ({ post, showTags = true }: BlogListItemProps) => (
     <TLink as={Link} to={post.slug} sx={{ fontSize: [1, 2, 3], color: `text` }}>
       {post.title}
     </TLink>
-    <p sx={{ color: `secondary`, mt: 1, a: { color: `primary` }, fontSize: [0.5, 0.5, 1] }}>
+    <p sx={{ color: `secondary`, mt: 1, a: { color: `primary` }, fontSize: [1, 1, 1] }}>
       {post.excerpt}
     </p>
-    <p sx={{ color: `secondary`, mt: 1, a: { color: `primary` }, fontSize: [0.5, 1, 1] }}>
+    <p sx={{ color: `secondary`, mt: 1, a: { color: `primary` }, fontSize: [1, 1, 1] }}>
       <time>{post.date}</time>
       {post.tags && showTags && (
         <React.Fragment>
