@@ -5,6 +5,7 @@ import React from "react"
 import Layout from "./layout"
 import ItemTags from "./item-tags"
 import SEO from "./seo"
+import Utterances from "../components/utterances"
 
 type PostProps = {
   data: {
@@ -62,6 +63,7 @@ const Post = ({ data: { post } }: PostProps) => (
       }}
     >
       <MDXRenderer>{post.body}</MDXRenderer>
+      <Utterances repo="me0768/myanglog-comments" />
     </section>
   </Layout>
 )
