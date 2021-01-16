@@ -44,7 +44,7 @@ const Post = ({ data: { post } }: PostProps) => (
       pathname={post.slug}
     />
     <Heading variant="styles.h3">{post.title}</Heading>
-    <p sx={{ mt: 3, mb: 3, fontSize: `1.5rem` }}>{post.excerpt}</p>
+    <p sx={{ mt: 3, mb: 3, fontSize: `1.5rem` }}>{post.excerpt.length > 1 ? post.excerpt : ""}</p>
     <p sx={{ color: `secondary`, mt: 3, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
       <time>{post.date}</time>
       {post.tags && (
