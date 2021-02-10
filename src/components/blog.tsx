@@ -17,7 +17,7 @@ const Blog = () => {
     <Layout>
       <SEO title="Blog" />
       <Flex sx={{ alignItems: `center`, justifyContent: `space-between`, flexFlow: `wrap` }}>
-        <Heading variant="styles.h2">Blog</Heading>
+        <Heading variant="styles.h1">Blog</Heading>
         <TLink as={Link} sx={{ variant: `links.primary` }} to={replaceSlashes(`/${basePath}/${tagsPath}`)}>
           View all tags
         </TLink>

@@ -43,9 +43,9 @@ const Post = ({ data: { post } }: PostProps) => (
       image={post.banner ? post.banner.childImageSharp.resize.src : undefined}
       pathname={post.slug}
     />
-    <Heading variant="styles.h3">{post.title}</Heading>
-    <p sx={{ mt: 3, mb: 3, fontSize: `1.5rem` }}>{post.excerpt.length > 1 ? post.excerpt : ""}</p>
-    <p sx={{ color: `secondary`, mt: 3, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
+    <Heading variant="styles.h1">{post.title}</Heading>
+    <p sx={{ mt: 3, mb: 3, fontSize: `1.25rem` }}>{post.excerpt.length > 1 ? post.excerpt : ""}</p>
+    <p sx={{ color: `secondary`, mt: 3, a: { color: `secondary` }, fontSize: [0.5, 0.5, 1] }}>
       <time>{post.date}</time>
       {post.tags && (
         <React.Fragment>
@@ -58,8 +58,8 @@ const Post = ({ data: { post } }: PostProps) => (
     </p>
     <section
       sx={{
-        my: 5,
-        ".gatsby-resp-image-wrapper": { my: [4, 4, 5], boxShadow: shadow.join(`, `) },
+        my: 4,
+        ".gatsby-resp-image-wrapper": { my: [2, 2, 5], boxShadow: shadow.join(`, `) },
         variant: `layout.content`,
       }}
     >

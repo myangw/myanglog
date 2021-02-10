@@ -39,7 +39,7 @@ const theme = merge(tailwind, {
       MozOsxFontSmoothing: `grayscale`,
     },
     p: {
-      fontSize: [1, 1, 2],
+      fontSize: [0.5, 1, 1],
       letterSpacing: `-0.003em`,
       lineHeight: `body`,
       "--baseline-multiplier": 0.179,
@@ -47,7 +47,7 @@ const theme = merge(tailwind, {
     },
     ul: {
       li: {
-        fontSize: [1, 1, 2],
+        fontSize: [0.5, 1, 1],
         letterSpacing: `-0.003em`,
         lineHeight: `body`,
         "--baseline-multiplier": 0.179,
@@ -56,7 +56,7 @@ const theme = merge(tailwind, {
     },
     ol: {
       li: {
-        fontSize: [1, 1, 2],
+        fontSize: [0.5, 1, 1],
         letterSpacing: `-0.003em`,
         lineHeight: `body`,
         "--baseline-multiplier": 0.179,
@@ -65,17 +65,17 @@ const theme = merge(tailwind, {
     },
     h1: {
       variant: `text.heading`,
-      fontSize: [5, 6, 7],
+      fontSize: [3, 4, 5],
       mt: 4,
     },
     h2: {
       variant: `text.heading`,
-      fontSize: [4, 5, 6],
+      fontSize: [2, 2, 3],
       mt: 4,
     },
     h3: {
       variant: `text.heading`,
-      fontSize: [3, 4, 5],
+      fontSize: [1, 2, 2],
       mt: 4,
     },
     h4: {
@@ -132,8 +132,8 @@ const theme = merge(tailwind, {
   },
   layout: {
     container: {
-      padding: [3, 4],
-      maxWidth: `1024px`,
+      padding: [2, 3],
+      maxWidth: `900px`,
     },
   },
   text: {
@@ -205,7 +205,7 @@ const theme = merge(tailwind, {
       },
     },
     listItem: {
-      fontSize: [1, 2, 3],
+      fontSize: [0.5, 0.5, 0.5],
       color: `text`,
     },
   },
