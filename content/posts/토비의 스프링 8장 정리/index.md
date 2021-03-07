@@ -1,12 +1,11 @@
 ---
-title: "토비의 스프링 8장 정리"
+title: "토비의 스프링 8장 정리 - 스프링이란 무엇인가"
 date: 2021-02-27
-slug: "토비의 스프링 8장 정리"
-excerpt: "스프링이란 무엇인가"
+slug: "토비의 스프링 8장 정리 - 스프링이란 무엇인가"
+excerpt: "-"
 tags:
   - Spring
 ---
-# 8장. 스프링이란 무엇인가
 
 
 ## 8.1 스프링의 정의
@@ -107,7 +106,7 @@ tags:
 
 "분리됐지만 반드시 필요한 엔터프라이즈 서비스 기술을 POJO 방식으로 개발된 애플리케이션 핵심 로직을 담은 코드에 제공한다" 
 
-![Untitled%201.png](Untitled%201.png)
+![Untitled%201.png](Untitled1.png)
 
 - Spring application = POJO를 이용해서 만든 애플리케이션 코드 + POJO가 어떻게 관계를 맺고 동작하는지를 정의해놓은 설계 정보.
 - IOC/DI, AOP, PSA(Portable Service Abstraction) 은 애플리케이션을 POJO로 개발할수있게 해주는 가능기술(enabling technology)
@@ -140,7 +139,7 @@ POJO가 될 수 있는 조건이 그대로 POJO의 장점이다.  - 깔끔한 �
 
 스프링은 기술영역에만 관여하고, 비즈니스로직을 담당하는 POJO에서는 모습을 감춘다. 데이터 액세스나 웹UI 등 최소한의 방법으로 관여.
 
-![Untitled%202.png](Untitled%202.png)
+![Untitled%202.png](Untitled2.png)
 
 ## 8.4 스프링의 기술
 
@@ -181,7 +180,7 @@ POJO가 될 수 있는 조건이 그대로 POJO의 장점이다.  - 깔끔한 �
 
       ex. A(client)가 C를 사용하고 싶을 때. (743p.)
 
-      ![Untitled%203.png](Untitled%203.png)
+      <img src="Untitled3.png" alt="drawing" width="100px !important"/>
 
     - 이걸 일반화해서 인터페이스가 다른 다양한 구현을 같은 방식으로 사용하도록, 중간에 인터페이스 어댑터 역할을 하는 레이어를 추가할 수 있다.( = 서비스추상화)
 
