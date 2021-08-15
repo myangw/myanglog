@@ -6,6 +6,7 @@ excerpt: "refresh를 해야 검색이 되는 이유"
 tags:
   - elasticsearch
   - lucene
+  - 글또
 ---
 elasticsearch indexing할때 성능을 향상시키는 방법을 찾아보면 refresh inverval 설정을 -1로 해두는 방법이 나온다. 그래서 개발 초기에 template 설정할 때 우선 -1로 설정해두었었는데, 데이터를 확인하려다보니 아무리 docs를 넣어도 검색했을 때 보이지 않는 이슈가 생겼다. refresh interval을 -1로 설정한다는 건 refresh를 하지 않도록 설정하는 것이었기 때문이었다. (문서를 제대로 읽었어야했다ㅠ [indexing 성능 향상에 대한 elastic의 가이드]([https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html)) ) 내부적으로 어떻게 저장하고 있길래 refresh라는 개념이 있고, 왜 검색이 되지 않았었는지 전반적으로 elasticsearch의 구조와 함께 좀더 찾아봤다.
 
@@ -15,7 +16,7 @@ elasticsearch 어플리케이션은 노드 여러개를 하나의 클러스터�
 
 index 하나는 여러 개의 샤드에 나눠서 저장이 되는데, 이 샤드들은 각각 다른 노드에 분산 저장된다. replica를 1개 이상 지정하면 서로 다른 노드에 레플리카가 위치하게 된다.
 ![node_and_shard.png](node_and_shard.png)
-(https://esbook.kimjmin.net/03-cluster/3.2-index-and-shards)
+<center> (https://esbook.kimjmin.net/03-cluster/3.2-index-and-shards)</center>
 
 ## document를 수정/삭제/추가 할때 어떻게 되나?
 
@@ -39,7 +40,7 @@ lucene index는 더 작은 단위인 segment로 구성된다.
 
 처음에 얘기했던,  refresh_interval 설정을 -1로 했을 때 검색이 안되었던 이유는 새로 인덱싱 된 문서가 인메모리 버퍼에 있고 디스크에 반영되지 않아 찾을 수 없는 거였다.
 ![refresh.png](refresh.png)
-(https://www.elastic.co/kr/blog/nuxeo-search-and-lucene-oh-my)
+<center>(https://www.elastic.co/kr/blog/nuxeo-search-and-lucene-oh-my)</center>
 
 ## refresh_interval 설정 어떻게 해야할까
 
