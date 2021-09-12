@@ -173,12 +173,12 @@ tags:
 
 ### 6.3.6. 테이블 조인(!)
 
-- innerjoin은 어느테이블을 먼저 읽어도 결과가 달라지지 않음 - 옵티마이저가 조인 순서를 조절해서 최적화.
-- outerjoin은 outer 테이블을 먼저 읽어야해서 순서를 선택할 수 없음
+- inner join은 어느테이블을 먼저 읽어도 결과가 달라지지 않음 - 옵티마이저가 조인 순서를 조절해서 최적화.
+- outer join은 outer 테이블을 먼저 읽어야해서 순서를 선택할 수 없음
 
     ### inner join
 
-    ```jsx
+    ```java
     for (record1 in table1) {  // outer table(driving table) - 먼저 읽혀야
     	for (record2 in table2) { // inner table(driven table)
     		if (record1.join_column == record2.join_column) {
@@ -192,7 +192,7 @@ tags:
 
     ### outer join
 
-    ```jsx
+    ```java
     for (record1 in table1) {  // outer table(driving table) - 먼저 읽혀야
     	for (record2 in table2) { // inner table(driven table)
     		if (record1.join_column == record2.join_column) {
@@ -206,9 +206,10 @@ tags:
 
     - outer table의 결과를 버리지 않고 결과에 그대로 포함
     - 주의: outer join에서 join되는 드리븐 테이블에 대한 조건은 where절 말고 left join의 on절에 모두 명시해야함 (그렇지 않으면 옵티마이저가 outer join을 내부적으로 inner로 바꿔버림..)
-        - `select * from emp e left outer join sal s on s.emp_no = e.emp_no where s.salary > 5000;` →  on절에 sal테이블이 없어서 inner join으로 바뀌어버림
-            - how to fix?
-                - `select * from emp e left outer join sal s on s.emp_no=e.emp_no and s.salray > 5000`
+      - inner join으로 바뀌는 쿼리: `select * from emp e left outer join sal s on s.emp_no = e.emp_no where s.salary > 5000;`
+      - →  on절에 sal테이블이 없어서 inner join으로 바뀌어버림
+      - how to fix?
+        - `select * from emp e left outer join sal s on s.emp_no=e.emp_no and s.salray > 5000`
 
     ### join buffer를 이용한 조인
 
@@ -220,7 +221,7 @@ tags:
                 - 드리븐 테이블을 먼저 읽고 조인버퍼에서 일치하는 레코드를 찾는 방식이 됨
                 - → 정렬 순서가 흐트러질 수있음
 
-** outer join과 inner join은 성능상으로는 큰 차이 없음. 성능이 아니라 업무 요건에 따라 고려하자
+    - outer join과 inner join은 성능상으로는 큰 차이 없음. 성능이 아니라 업무 요건에 따라 고려하자
 
 ## 6.4. 실행계획 분석 시 주의사항
 
