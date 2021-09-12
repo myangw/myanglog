@@ -1,12 +1,16 @@
 ---
 title: "RealMysql 6장 실행계획 정리"
 date: 2021-09-12
-slug: ""
-excerpt: ""
+slug: "RealMysql 6장 실행계획 정리"
+excerpt: "-"
 tags:
   - Mysql
   - 글또
 ---
+
+실행계획과 여러 상황에서의 인덱스 사용에 대해 상세히 알아보자.
+
+
 
 ## 6.1. 개요
 
