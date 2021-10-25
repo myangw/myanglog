@@ -6,7 +6,6 @@ excerpt: "refresh를 해야 검색이 되는 이유"
 tags:
   - elasticsearch
   - lucene
-  - 글또
 ---
 elasticsearch indexing할때 성능을 향상시키는 방법을 찾아보면 refresh inverval 설정을 -1로 해두는 방법이 나온다. 그래서 개발 초기에 template 설정할 때 우선 -1로 설정해두었었는데, 데이터를 확인하려다보니 아무리 docs를 넣어도 검색했을 때 보이지 않는 이슈가 생겼다. refresh interval을 -1로 설정한다는 건 refresh를 하지 않도록 설정하는 것이었기 때문이었다. (문서를 제대로 읽었어야했다ㅠ [indexing 성능 향상에 대한 elastic의 가이드]([https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html)) ) 내부적으로 어떻게 저장하고 있길래 refresh라는 개념이 있고, 왜 검색이 되지 않았었는지 전반적으로 elasticsearch의 구조와 함께 좀더 찾아봤다.
 
