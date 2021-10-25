@@ -18,12 +18,12 @@ Java8에서 인터페이스에 '디폴트 메서드'를 추가할 수 있게 되
 
 - 상수(static final ~) 와 추상메서드를 포함할 수 있다
 
-```java
-interface Barkable {
-	public static final int BLABLA_CONSTANT = 1;
-	public abstract void bark();
-}
-```
+    ```java
+    interface Barkable {
+      public static final int BLABLA_CONSTANT = 1;
+      public abstract void bark();
+    }
+    ```
 
 - Java8부터 디폴트 메서드 (안에 구현까지 작성 가능)를 포함할 수 있다
     - 디폴트 메서드: 인터페이스를 상속한 구현체에 공통으로 들어갈 코드를 디폴트 메서드에 작성하여 반복을 줄인다
@@ -53,7 +53,7 @@ interface Barkable {
 
 - `abstract` 키워드와 함께 선언한다.
     
-    ```jsx
+    ```java
     abstract class Animal {
     }
     ```
