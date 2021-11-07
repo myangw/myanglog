@@ -61,7 +61,7 @@ void copyAll(Collection<Object> to, Collection<String> from) {
 ### Covariance
 
 - `? extends T`(Kotlin: `<out T>`)
-- String이 Object의 하위타입이니 Collection<String> 도 Collection<? extends Object>의 하위타입으로 쓸 수 있다
+- String이 Object의 하위타입이니 `Collection<String>` 도 `Collection<? extends Object>` 의 하위타입으로 쓸 수 있다
 
 ```java
 // Stack 의 메서드
