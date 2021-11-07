@@ -42,9 +42,9 @@ class Panda extends Animal {
 }
 ```
 
-- Panda는 Animal의 하위 타입이지만, List<Panda>는 List<Animal>의 하위타입이 아니다.
+- Panda는 Animal의 하위 타입이지만, `List<Panda>`는 `List<Animal>`의 하위타입이 아니다.
     - Panda는 Animal이 하는 일(eat())을 수행하는데 문제가 없지만,
-    - List<Panda>는 List<Animal>이 하는 일 (온갖 종류의 Animal 타입을 add하기)를 할 수 없기 때문(Panda타입만 add할 수 있다)
+    - `List<Panda>`는 `List<Animal>`이 하는 일 (온갖 종류의 Animal 타입을 add하기)를 할 수 없기 때문(Panda타입만 add할 수 있다)
 - ⇒ 클래스의 상속관계가 Generics에서는 상속관계로 유지되지 않는 것을 Invariance라고 한다
 Generics는 컴파일 단계에서 Generics의 타입이 지워지기 때문. 예시에서 JVM은 Runtime에 List 객체만 알고 있게 된다.
 
@@ -89,7 +89,7 @@ numbers.add(1.1); // compile error
 ### Contravariance
 
 - `? super T` (Kotlin: `<in T>`)
-- Integer가 Number의 하위타입 →  Collection<Number>를 Collection<? super Integer>의 하위타입으로 쓸 수 있다
+- Integer가 Number의 하위타입 →  `Collection<Number>`를 `Collection<? super Integer>`의 하위타입으로 쓸 수 있다
 
 ```java
 // Stack 의 메서드
@@ -103,7 +103,7 @@ Collection<Object> objects = ...;
 numberStack.popAll(objects);
 ```
 
-- List<? super T>에는 read(get)은 할 수 없고, add는 할 수 있다. (이유는 밑에서 설명)
+- `List<? super T>`에는 read(get)은 할 수 없고, add는 할 수 있다. (이유는 밑에서 설명)
 
 ```java
 public void addNumber(List<? super Integer> numbers) {
@@ -119,16 +119,16 @@ System.out.println(myInts); // 정상
 
 ## PECS
 
-<? extends T>와 <? super T>를 각각 언제 써야할까?
+`<? extends T>`와 `<? super T>`를 각각 언제 써야할까?
 
 이펙티브 자바에서는 PECS를 기억하면 된다고 소개하고 있다.
 
 - **producer-extends, consumer-super.** (다른 말로는 Get and Put Principle도 있음)
-- 매개변수화 타입 T가 생산자라면 <? extends T>, 소비자라면 <? super T> 를 써야한다는 뜻.
+- 매개변수화 타입 T가 생산자라면 `<? extends T>`, 소비자라면 `<? super T>` 를 써야한다는 뜻.
     - producer : 데이터를 제공하는 역할. read only
     - consumer: 정보를 받아 사용하는 역할. writeonly
     - 😵‍💫   consumer가 정보를 받는건데 consumer가 read를 해야하는것 아닌가요? - 라고 생각했는데
-        - 예를들어 List<T> 라면 'List의 관점'에서 봐야 한다.
+        - 예를들어 `List<T>` 라면 'List의 관점'에서 봐야 한다.
         - → producer는 read를 할 수 있게 제공을 하고, consumer일때는 외부에서 write해주는걸 받아 채워넣는다
 - 주의) 메서드의 return type에는 이러한 한정적 wildcard를 쓰면 안됨. client코드에서도 wildcard타입을 써야하기 때문. 유연성을 높여주지 않는다.
     
