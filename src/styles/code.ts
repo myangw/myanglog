@@ -12,7 +12,7 @@ const code = {
     backgroundColor: tint(`primary`, 0.7),
   },
   ".prism-code": {
-    fontSize: `12px`,
+    fontSize: `14px`,
     padding: `1rem 1rem 1rem 1rem`,
     webkitOverflowScrolling: `touch`,
     backgroundColor: `transparent`,

@@ -6,9 +6,10 @@ excerpt: "-"
 tags:
   - Java,Generic,Covariance,Contravariance
 ---
+
 Spring batch를 쓰다보면 ItemWriter에 `void write(List<? extends T> var1)`  이런 메서드가 있어 왜 저런 제네릭 타입을 쓰는걸까 궁금했었는데 이제서야 찾아보게 되었다.
 
-contravariance 개념에 대한 글들을 봐도 뭔가 직관적이지 않아서 이해하는데에만 몇 시간이나 걸려버렸다(ㅂㄷㅂㄷ..)
+contravariance 개념에 대한 글들을 봐도 뭔가 직관적이지 않아서 이해하는데에만 몇 시간이나 걸렸는데, 이해하고 나니 어찌보면 단순하다. 최대한 정리해봤다.
 
 ## Generic 용어
 
@@ -63,18 +64,6 @@ void copyAll(Collection<Object> to, Collection<String> from) {
 - `? extends T`(Kotlin: `<out T>`)
 - String이 Object의 하위타입이니 `Collection<String>` 도 `Collection<? extends Object>` 의 하위타입으로 쓸 수 있다
 
-```java
-// Stack 의 메서드
-public void pushAll(Iterable<? extends E> src) {
-	for (E e : src) 
-		push(e); // src매개변수는 Stack이 사용할 E인스턴스를 생산함
-}
-
-Stack<Number> numberStack = new Stack<>();
-Iterable<Interger> integers = ...;
-numberStack.pushAll(intergers);
-```
-
 - List<? extends T>에는 read(get) 만 할수있고, add는 할 수 없다. (이유는 밑에서 설명)
 
 ```java
@@ -90,18 +79,6 @@ numbers.add(1.1); // compile error
 
 - `? super T` (Kotlin: `<in T>`)
 - Integer가 Number의 하위타입 →  `Collection<Number>`를 `Collection<? super Integer>`의 하위타입으로 쓸 수 있다
-
-```java
-// Stack 의 메서드
-public void popAll(Collection<? super E> dst) {
-	while (!isEmpty())
-		dst.add(pop()); // dst 매개변수는 Stack으로부터 E인스턴스를 소비함
-}
-
-Stack<Number> numberStack = new Stack<>();
-Collection<Object> objects = ...;
-numberStack.popAll(objects);
-```
 
 - `List<? super T>`에는 read(get)은 할 수 없고, add는 할 수 있다. (이유는 밑에서 설명)
 
@@ -137,15 +114,55 @@ System.out.println(myInts); // 정상
     public <? extends T> method2() {} // nope!
     ```
 
+
+## 왜 add/get 하나만 가능할까?
+
+- PECS 원칙은 알겠는데, 왜 원칙이 이렇게 되었는지가 궁금했다.
+
+- 우선 기억해야할 것은
+    - 자식객체는 부모 객체의 모든 메서드를 포함하고 그 이상을 가지고 있다는 것. 그래서 자식객체는 부모 객체를 대체할 수 있지만, 부모객체는 자식객체를 대체할 수 없다.
+    - 자식에 부모를 대입한다면, 부모는 자식이 가지고 있는걸 다 가지진않아서 컴파일 에러를 일으킨다.
+
+- covariance 예시를 다시 보자.
+
+```java
+List<Double> doubles = Arrays.asList(1.1, 2.2, 3.3);
+List<? extends Number> numbers = doubles; // ok
+
+Number number = numbers.get(0); 
+	// numbers에서 가져온 어떤 객체이든 Number타입이거나 
+	// Number타입으로 upcasting 되므로 compile 가능하다
+
+numbers.add(1.1); // compile error
+									// Number보다 하위인 Double이라서 왜 안되는지 의아할 수 있지만,
+									// Double보다 더 하위 클래스가 List에 포함된 상태일 수도 있기 때문에 
+									// Double이 들어가서 type이 safe함을 보장하지 못한다.
+```
+
+- contravariance 예시도 다시 보자
+
+```java
+public void addNumber(List<? super Integer> numbers) {
+    numbers.add(6); // Integer과 Integer의 super타입을 저장하는 List니까, 
+										// Integer타입을 add하는 것은 가능하다.
+    
+		int a = numbers.get(0); // 컴파일 에러
+														// 부모클래스도 같이 저장되어있으므로
+														// Number가 아닌 Integer를 get 해올 수 있다는 보장이 없다. 
+}
+```
+
+covariance-contravariance는 각각 다른 개념이 아니라 같은 이유로부터 나온 개념이다.
+
+`Collection<T>`로부터 T를 꺼내올 때, `Collection<T>`는 생산자. `Collection<? extends T>` 로 유연하게 만들면 read-only가 된다.
+
+`Collection<T>`에 T를 더 넣을 때, `Collection<T>`는 소비자이며 `Collection<? super T>`로 만들면 write-only가 된다.
+
 ---
 
 ### References
 
-- 'Effective Java' 3판 item31
+- 'Effective Java' 3판 item31 ⭐
 - [https://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super/19739576#19739576](https://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super/19739576#19739576)  → PECS 이해에 도움
-- [https://seob.dev/posts/공변성이란-무엇인가/](https://seob.dev/posts/%EA%B3%B5%EB%B3%80%EC%84%B1%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/)
-- [https://s2choco.tistory.com/20](https://s2choco.tistory.com/20)
-- 
-- [https://codechacha.com/ko/java-covariance-and-contravariance/](https://codechacha.com/ko/java-covariance-and-contravariance/)
-- [https://sabarada.tistory.com/124](https://sabarada.tistory.com/124)
-- [https://kotlinlang.org/docs/generics.html#declaration-site-variance](https://kotlinlang.org/docs/generics.html#declaration-site-variance)
+- [https://s2choco.tistory.com/2](https://s2choco.tistory.com/20)1 → PECS 이해에 도움
+- [https://codechacha.com/ko/java-covariance-and-contravariance/](https://codechacha.com/ko/java-covariance-and-contravariance/) → 예시
