@@ -134,9 +134,9 @@ Number number = numbers.get(0);
 	// Number타입으로 upcasting 되므로 compile 가능하다
 
 numbers.add(1.1); // compile error
-									// Number보다 하위인 Double이라서 왜 안되는지 의아할 수 있지만,
-									// Double보다 더 하위 클래스가 List에 포함된 상태일 수도 있기 때문에 
-									// Double이 들어가서 type이 safe함을 보장하지 못한다.
+                    // Number보다 하위인 Double이라서 왜 안되는지 의아할 수 있지만,
+                    // Double보다 더 하위 클래스가 List에 포함된 상태일 수도 있기 때문에 
+                    // Double이 들어가서 type이 safe함을 보장하지 못한다.
 ```
 
 - contravariance 예시도 다시 보자
@@ -147,8 +147,8 @@ public void addNumber(List<? super Integer> numbers) {
 										// Integer타입을 add하는 것은 가능하다.
     
 		int a = numbers.get(0); // 컴파일 에러
-														// 부모클래스도 같이 저장되어있으므로
-														// Number가 아닌 Integer를 get 해올 수 있다는 보장이 없다. 
+                                // 부모클래스도 같이 저장되어있으므로
+                                // Number가 아닌 Integer를 get 해올 수 있다는 보장이 없다. 
 }
 ```
 
