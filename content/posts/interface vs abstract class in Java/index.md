@@ -4,7 +4,9 @@ date: 2021-10-24
 slug: "Java interface vs abstract class - 언제 무엇을 쓸까"
 excerpt: "-"
 tags:
-  - Java,인터페이스,추상클래스
+  - Java
+  - 인터페이스
+  - 추상클래스
 ---
 '인터페이스와 추상클래스의 차이'는 흔한 질문같지만 표면적인 차이 이상으로 들어가다보니 꽤 다양한 생각들을 만날 수 있었다.
 

@@ -4,7 +4,12 @@ date: 2021-12-05
 slug: "Binary-to-text encoding(base64, base62 등)"
 excerpt: "-"
 tags:
-  - binary-to-text,인코딩,base64,base32,base16,base62
+  - binary-to-text encoding
+  - 인코딩
+  - base64
+  - base32
+  - base16
+  - base62
 ---
 
 웹개발을 하다보면 base64 같은 인코딩 방식들을 접하게 된다. 최근까지도 그냥 바이너리를 인코딩 하는 표준이겠지 정도만 생각해보았는데, 알아보니 흥미롭다. 인코딩이란 무엇이며 어떤 방식의 인코딩을 base-N으로 부르는지, 또 base64 외에도비슷한 base62, base32, base16 같은 다른 표준들이 서로 어떤 차이가 있는지 등을 살펴본다.

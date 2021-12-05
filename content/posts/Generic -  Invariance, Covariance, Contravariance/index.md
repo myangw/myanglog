@@ -4,7 +4,11 @@ date: 2021-11-07
 slug: "Generic -  Invariance, Covariance, Contravariance"
 excerpt: "-"
 tags:
-  - Java,Generic,Covariance,Contravariance
+  - Java
+  - Generic
+  - Covariance
+  - Contravariance
+  - 공변성
 ---
 
 Spring batch를 쓰다보면 ItemWriter에 `void write(List<? extends T> var1)`  이런 메서드가 있어 왜 저런 제네릭 타입을 쓰는걸까 궁금했었는데 이제서야 찾아보게 되었다.
