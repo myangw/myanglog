@@ -1,7 +1,7 @@
 ---
-title: "Binary-to-text encoding(base64, base62 등)"
+title: "Binary-to-text encoding(base64, 32, 16, 62, 58)"
 date: 2021-12-05
-slug: "Binary-to-text encoding(base64, base62 등)"
+slug: "Binary-to-text encoding(base64, 32, 16, 62, 58)"
 excerpt: "-"
 tags:
   - binary-to-text encoding
@@ -42,7 +42,7 @@ binary-to-text encoding 중 가장 많이 쓰이는 base64부터 32, 16, 62, 58�
 ## Base64
 
 - base-N은 'N진법'을 뜻한다. 따라서 '64진법' 이라는 뜻. 8bit binary 데이터를 문자 코드에 영향을 받지 않는 공통 ASCII영역의 문자들로만 이루어진 문자열로 바꾸는 인코딩 방식이다. (by [wiki](https://ko.wikipedia.org/wiki/%EB%B2%A0%EC%9D%B4%EC%8A%A464))
-    - 세계 곳곳의 문자들을 담아내야하는 니즈가 생기면서 ISO-8859, 유니코드 등 다양한 문자 인코딩 방식들이 생겼다. 근데 각각 커버할 수 있는 문자들이 다르고.. 결국 문자 코드와 상관없이 표현하려면 ASCII로 변환되어야 한다.
+    - 세계 곳곳의 문자들을 담아내야하는 니즈가 생기면서 ISO-8859, 유니코드 등 다양한 문자 인코딩 방식들이 생겼지만 각각 커버할 수 있는 문자들이 다르고.. 결국 문자 코드와 상관없이 표현하려면 ASCII로 변환되어야 한다.
     - 8비트 3개 → 6비트 4개로 쪼개어 표현한다. (2^6 = 64)
     
     ![base64.png](base64.png)
@@ -108,7 +108,7 @@ binary-to-text encoding 중 가장 많이 쓰이는 base64부터 32, 16, 62, 58�
 - 타이핑 실수 등 유효하지 않은 주소일때 체크할 수 있는 Four bytes (32 bits) of SHA256-based error checking code 가 포함된다
 - 2의 n승이 아니므로 binary보다는 정수를 인코딩하기에 적합
     - 비트코인 주소는 25byte(200bit) 숫자이며 base58로 나타내면 35개의 문자로 표현할 수 있다.
-    - ![base58](base58.png)
+    <img src="base58.png" alt="drawing" width="180px !important"/>
 
 ---
 
