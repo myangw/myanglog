@@ -2,7 +2,7 @@ import { tint } from "@theme-ui/color"
 
 const code = {
   "[data-name='live-editor']": {
-    fontSize: 1,
+    fontSize: 2,
     "textarea, pre": {
       padding: (t: any) => `${t.space[3]} !important`,
     },
