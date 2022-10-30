@@ -35,7 +35,7 @@ const code = {
     display: `inline-block`,
   },
   "p > code, li > code": {
-    bg: `gray.2`,
+    bg: `gray.4`,
     color: `gray.8`,
     px: 2,
     py: 1,
