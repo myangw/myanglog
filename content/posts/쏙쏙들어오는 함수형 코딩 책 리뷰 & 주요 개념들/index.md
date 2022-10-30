@@ -29,10 +29,11 @@ tags:
 - **액션, 계산, 데이터를 구분하고 더 좋은 코드를 위해서는 최대한 액션에서 계산을 분리하고 계산에서 데이터를 분리 해야한다.**
     - 액션 : 부수효과가 있는 함수. 실행시점과 횟수에 의존한다. ex. 이메일 보내기, db에서 읽어오기
     - 계산: 부수효과가 없는 순수함수.
-    - 데이터: 이벤트에 대한 사실.
+    - 데이터: 이벤트에 대한 사실.  
+    
 - **액션, 계산, 데이터를 구분하는 것이 왜 중요한가?**
     
-    ```jsx
+    ```javascript
     // 계산 구분 전
     var subscribers = ["myang", "soo", "sh"]
     function sendMessagesToSubscribers() {
@@ -69,22 +70,23 @@ tags:
     
     function messageForSubscriber(subscriber) {
     	if (getCouponRank(subscribers[i]) == "A") {
-    			return {
-    				title: "title for A grade customers" 
-    				body: "You got a best deal: ~~"
-    			};
-    		} else {
-    			return {
-    				title: "title for B grade customers" 
-    				body: "You got a bad deal: ~~"
-    			};
-    		}
+            return {
+                title: "title for A grade customers" 
+                body: "You got a best deal: ~~"
+            };
+        } else {
+            return {
+                title: "title for B grade customers" 
+                body: "You got a bad deal: ~~"
+            };
+        }
     }
     ```
     
     - 액션을 계산으로 바꾸면 재사용, 유지보수, 테스트하기 쉽다.
     - 계산을 조합하여 더 큰 계산을 만들 수 있다.
-    - 계산은 동시에 실행되는 것, 실행 맥락, 실행 횟수를 걱정하지 않아도 된다.
+    - 계산은 동시에 실행되는 것, 실행 맥락, 실행 횟수를 걱정하지 않아도 된다.  
+
 - **어떻게 액션을 계산으로 만들 수 있나**
     - 함수에 암묵적 입력(ex. 전역변수를 읽는 것)과 암묵적 출력(ex. console.log)이 있으면 액션.
         - 어떤 함수가 암묵적 입력과 출력을 가진다면, 그 함수와 연결된 부분의 동작에 의존하고 강하게 결합됨. 다른 곳에서 사용할 수 없게 된다.
@@ -94,7 +96,7 @@ tags:
         - Haskell, Clojure 등의 함수형 프로그래밍 언어는 언어 자체에서 불변성을 구현하고 있다. 그러나 자바스크립트는 직접 구현해야한다.
         - 불변성을 유지하기 위해 적용 가능한 원칙 1) copy-on-write: 어떤 값의 복사본을 만들고, 직접 값을 바꾸지 않는 것.
             
-            ```jsx
+            ```javascript
             // 인자로 전달한 배열을 직접 변경하는 것은 액션이다. (배열이 바뀌는 부수효과가 발생)
             
             var cart = [...] // 전역변수
@@ -112,7 +114,7 @@ tags:
             }
             ```
             
-            ```jsx
+            ```javascript
             // copy-on-write 적용하여 계산으로 바꾸기
             
             function remove_item_by_name(cart, name) {
@@ -132,7 +134,7 @@ tags:
             - 바꿀 수 없는 레거시 코드 또는 라이브러리의 함수를 사용해야할 때, 안전지대 바깥과 상호작용 하게 된다.
             - 이 때 deep copy로 nested data를 복사해야함
             
-            ```jsx
+            ```javascript
             function black_friday_promotion(cart) {
             	 // 통제 바깥의 코드. 무슨 일이 일어나는지 알 수 없음. cart를 변경할 수도 있음
             }
@@ -164,7 +166,7 @@ tags:
         - 코드를 추상화할 수 있다.
         - ‘함수 본문을 콜백으로 바꾸기’와 같은 암묵적 출력을 제거하는 리팩토링이 가능해진다.
             
-            ```jsx
+            ```javascript
             // 리팩토링 전
             function calc_total(cart) {
             	// ...
@@ -188,7 +190,7 @@ tags:
         - ⇒ 이벤트 소싱과 비슷한 개념.
         - filter, map도 결국 reduce로 만들 수 있다.
         
-        ```jsx
+        ```javascript
         function filter(array, f) {
         	return reduce(array, [], function(ret, item) {
         		if (f(item)) {
