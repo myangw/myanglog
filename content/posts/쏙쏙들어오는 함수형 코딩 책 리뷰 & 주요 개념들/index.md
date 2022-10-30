@@ -131,8 +131,11 @@ tags:
             ```
             
         - 불변성을 유지하기 위해 적용 가능한 원칙 2) 방어적 복사: 불변성이 지켜지는 안전지대의 바깥으로 들어오고 나가는 데이터의 복사본을 만들기
-            바꿀 수 없는 레거시 코드 또는 라이브러리의 함수를 사용해야할 때, 안전지대 바깥과 상호작용 하게 된다.  
-            이 때 deep copy로 nested data를 복사해야함
+            
+            
+            - 바꿀 수 없는 레거시 코드 또는 라이브러리의 함수를 사용해야할 때, 안전지대 바깥과 상호작용 하게 된다.  
+            - 이 때 deep copy로 nested data를 복사해야함
+            - deep copy는 비용이 많이 듬. 안전지대 안에서는 copy-on-write로 충분하다.
             
             ```javascript
             function black_friday_promotion(cart) {
@@ -146,8 +149,7 @@ tags:
             	cart = deepCopy(cart_copy); // 안전지대로 데이터가 들어올 때 복사
             }
             ```
-            
-            deep copy는 비용이 많이 듬. 안전지대 안에서는 copy-on-write로 충분하다.
+    
         
         ** 이렇게 코드짤때마다 신경쓰면서 일일이 다 copy를 해야할까? 에 대한 대안은 immutable.js 같은 라이브러리 사용이 아닐까 싶다. 코틀린의 경우 immutable collection을 쓰는것
         
