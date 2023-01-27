@@ -30,12 +30,7 @@ module.exports = {
             slug: `/about`,
           },
         ],
-        externalLinks: [
-          {
-            name: `Instagram`,
-            url: `https://www.instagram.com/myang.log/`,
-          },
-        ],
+        externalLinks: [],
       },
     },
     {
