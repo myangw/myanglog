@@ -12,7 +12,7 @@ module.exports = {
     siteLanguage: `KR`,
     siteUrl: `https://www.myanglog.com`,
     siteHeadline: `Myanglog`,
-    siteDescription: `Blog by myang - dev/review/notes`,
+    siteDescription: `Blog by myang`,
     siteImage: `/android-192.png`
   },
   plugins: [
