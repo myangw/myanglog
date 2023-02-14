@@ -58,7 +58,7 @@ const Post = ({ data: { post } }: PostProps) => (
       }}
     >
       <MDXRenderer>{post.body}</MDXRenderer>
-      <Utterances repo="me0768/myanglog-comments" />
+      <Utterances repo="myangw/myanglog-comments" />
     </section>
   </Layout>
 )
