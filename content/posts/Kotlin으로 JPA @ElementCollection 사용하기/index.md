@@ -2,7 +2,7 @@
 title: "Kotlin으로 JPA @ElementCollection 사용하기"
 date: 2023-02-26
 slug: "Kotlin으로 JPA @ElementCollection 사용하기"
-excerpt: ""
+excerpt: "-"
 tags:
   - JPA 
 ---
