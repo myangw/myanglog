@@ -55,7 +55,6 @@ Proxyman은 앱이나 도메인의 HTTP/HTTPS 요청을 보게 해주는 디버�
         
     - ex. CONNECT요청을 제외하고 GET, POST만 보고싶다면
         
-        ![/Untitled3.png](Untitled3.png)
         <img src="Untitled3.png" alt="drawing" width="80vw !important"/>
         
 
