@@ -36,7 +36,7 @@ Proxyman은 앱이나 도메인의 HTTP/HTTPS 요청을 보게 해주는 디버�
     - map remote는 stage환경 디버깅에 가끔 쓴다. (사실 이것까지 하는건 정말 극한의 상황…)
         - mapping rule을 stage서버 엔드포인트→ localhost로 생성하고 enable하기
         - local서버를 디버깅모드로 띄우고 stage 웹/앱 에서 호출해서 디버깅해볼 수 있다.
-        ![/Untitled 1.png](Untitled 1.png)
+        ![/Untitled1.png](Untitled1.png)
         
 3. diff 체크하기 → 개발 환경과 prod 환경의 api 응답이라던지.. 비교해서 확인해야할 때 쓴다. (메인 메뉴에 Diff를 클릭하여 쓸 수 있음)
 4. Filter 기능 → 특정 서버에 대한 요청들만 보고싶을 때 유용하다.
@@ -51,11 +51,11 @@ Proxyman은 앱이나 도메인의 HTTP/HTTPS 요청을 보게 해주는 디버�
     - 기본적으로는 상단 toolbar의 clear아이콘이나 pin기능, highlight 기능을 사용
     - 필터 기능을 사용하면 된다.! 다양한 방법으로 필터를 할 수 있다.
         
-       ![/Untitled%202.png](Untitled%202.png) 
+       ![/Untitled2.png](Untitled2.png) 
         
     - ex. CONNECT요청을 제외하고 GET, POST만 보고싶다면
         
-        ![/Untitled%203.png](Untitled%203.png)
+        ![/Untitled3.png](Untitled3.png)
         
 
 ## 그래서 어떻게하면 쓸수있나? - setting 방법
@@ -67,20 +67,20 @@ Proxyman은 앱이나 도메인의 HTTP/HTTPS 요청을 보게 해주는 디버�
 - 셋팅이 안된다 ㅠ.ㅠ → 아마 설정 중에 뭔가를 빼먹었을 가능성이 크다. 아니면 순서대로 안했거나..
     - ex. ssl handshake failed / wifi로 https요청이 연결 안되는 문제: 폰에 인증서 설치가 제대로 안된 것
         
-       ![/Untitled%204.png](Untitled%204.png) 
+       ![/Untitled4.png](Untitled4.png) 
         
     - 굉장히 사소하지만….. 비슷한 이름의 서로 다른 wifi로 폰과 맥북 접속을 하는 바람에 모든 매뉴얼을 따라했는데도 안된 적이 있다. ^^
 - 모바일 디바이스와 연결되고나면 왼쪽에 아래 캡처와 같이 Remote devices 목록이 노출되고 내 기기를 확인할 수 있다.
     
-   ![/Untitled%205.png](Untitled%205.png) 
+   ![/Untitled5.png](Untitled5.png) 
     
 - 인증서 설치가 조금 생소할 수 있어서 캡처를 덧붙여본다.
     - wifi 프록시설정 하고나서 설정에 들어가면 ‘프로파일이 다운로드됨’ 이라는 없던 메뉴가 생기는데 요것을 클릭하여 설치한다.
     
-    ![/Untitled%206.png](Untitled%206.png)
+    ![/Untitled6.png](Untitled6.png)
     
-    ![/Untitled%207.png](Untitled%207.png)
+    ![/Untitled7.png](Untitled7.png)
     
     - 설치가 끝이 아니라  설정 > ‘일반’ > ‘정보’ > 맨 아래에 ‘인증서 신뢰설정’으로 들어가서 root인증서 활성화 토글까지 on 해줘야한다.
     
-    ![/Untitled%208.png](Untitled%208.png)
+    ![/Untitled8.png](Untitled8.png)
