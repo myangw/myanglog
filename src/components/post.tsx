@@ -53,7 +53,7 @@ const Post = ({ data: { post } }: PostProps) => (
     <section
       sx={{
         my: 4,
-        ".gatsby-resp-image-wrapper": { my: [2, 2, 3], boxShadow: "none", maxWidth: "500px !important" },
+        ".gatsby-resp-image-wrapper": { my: [2, 2, 3], boxShadow: "none" },
         variant: `layout.content`,
       }}
     >

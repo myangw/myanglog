@@ -24,6 +24,18 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
         },
         img: {
           borderStyle: `none`,
+          maxWidth: `100%`,
+          width: `auto`,
+        },
+        "@media screen and (min-width: 700px)": {
+          img: {
+            maxWidth: `900px`,
+          },
+        },
+        "@media screen and (max-width: 699px)": {
+          img: {
+            maxWidth: `300px`,
+          },
         },
         pre: {
           fontFamily: `monospace`,
@@ -39,6 +51,7 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
         a: {
           transition: `all 0.3s ease-in-out`,
           color: `text`,
+          fontSize: `1rem`
         },
       })}
     />
