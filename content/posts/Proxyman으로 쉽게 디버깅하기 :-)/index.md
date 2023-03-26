@@ -51,11 +51,11 @@ Proxyman은 앱이나 도메인의 HTTP/HTTPS 요청을 보게 해주는 디버�
     - 기본적으로는 상단 toolbar의 clear아이콘이나 pin기능, highlight 기능을 사용
     - 필터 기능을 사용하면 된다.! 다양한 방법으로 필터를 할 수 있다.
         
-       ![/Untitled 2.png](Untitled 2.png) 
+       ![/Untitled%202.png](Untitled%202.png) 
         
     - ex. CONNECT요청을 제외하고 GET, POST만 보고싶다면
         
-        ![/Untitled 3.png](Untitled 3.png)
+        ![/Untitled%203.png](Untitled%203.png)
         
 
 ## 그래서 어떻게하면 쓸수있나? - setting 방법
@@ -67,20 +67,20 @@ Proxyman은 앱이나 도메인의 HTTP/HTTPS 요청을 보게 해주는 디버�
 - 셋팅이 안된다 ㅠ.ㅠ → 아마 설정 중에 뭔가를 빼먹었을 가능성이 크다. 아니면 순서대로 안했거나..
     - ex. ssl handshake failed / wifi로 https요청이 연결 안되는 문제: 폰에 인증서 설치가 제대로 안된 것
         
-       ![/Untitled 4.png](Untitled 4.png) 
+       ![/Untitled%204.png](Untitled%204.png) 
         
     - 굉장히 사소하지만….. 비슷한 이름의 서로 다른 wifi로 폰과 맥북 접속을 하는 바람에 모든 매뉴얼을 따라했는데도 안된 적이 있다. ^^
 - 모바일 디바이스와 연결되고나면 왼쪽에 아래 캡처와 같이 Remote devices 목록이 노출되고 내 기기를 확인할 수 있다.
     
-   ![/Untitled 5.png](Untitled 5.png) 
+   ![/Untitled%205.png](Untitled%205.png) 
     
 - 인증서 설치가 조금 생소할 수 있어서 캡처를 덧붙여본다.
     - wifi 프록시설정 하고나서 설정에 들어가면 ‘프로파일이 다운로드됨’ 이라는 없던 메뉴가 생기는데 요것을 클릭하여 설치한다.
     
-    ![/Untitled 6.png](Untitled 6.png)
+    ![/Untitled%206.png](Untitled%206.png)
     
-    ![/Untitled 7.png](Untitled 7.png)
+    ![/Untitled%207.png](Untitled%207.png)
     
     - 설치가 끝이 아니라  설정 > ‘일반’ > ‘정보’ > 맨 아래에 ‘인증서 신뢰설정’으로 들어가서 root인증서 활성화 토글까지 on 해줘야한다.
     
-    ![/Untitled 8.png](Untitled 8.png)
+    ![/Untitled%208.png](Untitled%208.png)
