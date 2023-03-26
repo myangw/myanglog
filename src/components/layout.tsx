@@ -37,6 +37,9 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
             maxWidth: `300px`,
           },
         },
+        strong: {
+          fontSize: `1rem`
+        },
         pre: {
           fontFamily: `monospace`,
           fontSize: `1em`,

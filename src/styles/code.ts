@@ -35,11 +35,12 @@ const code = {
     display: `inline-block`,
   },
   "p > code, li > code": {
-    bg: `gray.4`,
-    color: `gray.8`,
-    px: 2,
-    py: 1,
+    bg: `indigo.5`,
+    color: `white`,
+    px: 1,
+    py: 0.9,
     borderRadius: `2px`,
+    fontSize: `1rem`,
   },
   ".gatsby-highlight": {
     fontSize: [1, 1, 2],
@@ -55,6 +56,7 @@ const code = {
     "pre code": {
       float: `left`,
       minWidth: `100%`,
+      fontSize: `1rem`,
     },
     'pre[class*="language-"]:before': {
       bg: `white`,
@@ -174,6 +176,7 @@ const code = {
     userSelect: `none`,
     opacity: 0.3,
     textAlign: `center`,
+    fontSize: `1rem`,
     position: `relative`,
   },
   ".code-title": {
@@ -191,6 +194,10 @@ const code = {
   },
   ".token-line": {
     pr: 3,
+    fontSize: `1rem`,
+  },
+  ".plain": {
+    fontSize: `1rem`,
   },
   ".highlight-line": {
     backgroundColor: `rgb(2, 55, 81)`,
