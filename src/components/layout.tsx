@@ -17,6 +17,7 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
       styles={(theme) => ({
         "*": {
           boxSizing: `inherit`,
+          fontSize: `1.2rem`,
         },
         html: {
           WebkitTextSizeAdjust: `100%`,
