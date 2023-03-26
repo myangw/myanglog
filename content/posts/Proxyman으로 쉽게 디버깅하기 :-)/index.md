@@ -51,11 +51,11 @@ Proxyman은 앱이나 도메인의 HTTP/HTTPS 요청을 보게 해주는 디버�
     - 기본적으로는 상단 toolbar의 clear아이콘이나 pin기능, highlight 기능을 사용
     - 필터 기능을 사용하면 된다.! 다양한 방법으로 필터를 할 수 있다.
         
-       <img src="Untitled2.png" alt="drawing" width="20vw !important"/>
+      ![/Untitled2.png](Untitled2.png) 
         
     - ex. CONNECT요청을 제외하고 GET, POST만 보고싶다면
         
-        <img src="Untitled3.png" alt="drawing" width="80vw !important"/>
+      ![/Untitled3.png](Untitled3.png) 
         
 
 ## 그래서 어떻게하면 쓸수있나? - setting 방법
