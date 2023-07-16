@@ -10,10 +10,7 @@ tags:
 
 > **JSON Schema** is a declarative language that allows you to **annotate** and **validate** JSON documents.
 > 
-
-annotate: 주석을 달다
-
-validate: 검증하다
+(annotate: 주석을 달다 / validate: 검증하다)
 
 ⇒ 말그대로 JSON에 대한 스키마이며, 항목들을 설명하고 검증하는데에 사용된다.
 
@@ -44,7 +41,7 @@ validate: 검증하다
     "productId": {
       "description": "The unique identifier for a product",
       "type": "integer",
-			"exclusiveMinimum": 1
+	  "exclusiveMinimum": 1
     }
   },
   "required": [ "productId" ]
@@ -109,7 +106,7 @@ public void test() throws IOException {
     // JsonNode node = getJsonNodeFromStringContent("{\"id\": \"2\"}");
     // Set<ValidationMessage> errors = schema.validate(node);
     // assertEquals(1, errors.size());
-		JsonNode node = getJsonNodeFromStringContent("{\"id\": 2 }");
+	JsonNode node = getJsonNodeFromStringContent("{\"id\": 2 }");
     Set<ValidationMessage> errors = schema.validate(node);
     assertEquals(0, errors.size());
 }
