@@ -88,6 +88,16 @@ public void test() throws IOException {
     Set<ValidationMessage> errors = schema.validate(node);
     assertEquals(1, errors.size());
 }
+
+
+protected JsonNode getJsonNodeFromStringContent(String content) throws IOException {
+    return mapper.readTree(content);
+}
+
+protected JsonSchema getJsonSchemaFromJsonNodeAutomaticVersion(JsonNode jsonNode) {
+    JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersionDetector.detect(jsonNode));
+    return factory.getSchema(jsonNode);
+}
 ```
 
 ⇒ 테스트 통과. id의 타입은 number이기 때문에 errors에 ValidationMessage가 생긴다.
