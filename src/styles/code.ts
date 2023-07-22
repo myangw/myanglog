@@ -202,7 +202,7 @@ const code = {
   "span.token": {
     fontSize: `1rem`,
   },
-  "code-copy-button": {
+  ".code-copy-button": {
     fontSize: `0.6rem`,
   },
   ".highlight-line": {
