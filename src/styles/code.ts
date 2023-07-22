@@ -199,6 +199,9 @@ const code = {
   ".plain": {
     fontSize: `1rem`,
   },
+  "span.token": {
+    fontSize: `1rem`,
+  },
   ".highlight-line": {
     backgroundColor: `rgb(2, 55, 81)`,
     borderLeft: `4px solid rgb(2, 155, 206)`,
