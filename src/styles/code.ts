@@ -202,6 +202,9 @@ const code = {
   "span.token": {
     fontSize: `1rem`,
   },
+  "code-copy-button": {
+    fontSize: `0.6rem`,
+  },
   ".highlight-line": {
     backgroundColor: `rgb(2, 55, 81)`,
     borderLeft: `4px solid rgb(2, 155, 206)`,
