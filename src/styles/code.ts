@@ -40,7 +40,7 @@ const code = {
     px: 1,
     py: 0.9,
     borderRadius: `2px`,
-    fontSize: `1rem`,
+    fontSize: `0.9rem`,
   },
   ".gatsby-highlight": {
     fontSize: [1, 1, 2],
@@ -172,18 +172,18 @@ const code = {
   },
   ".line-number-style": {
     display: `inline-block`,
-    width: `3em`,
+    width: `2.5em`,
     userSelect: `none`,
     opacity: 0.3,
     textAlign: `center`,
-    fontSize: `1rem`,
+    fontSize: `0.8rem`,
     position: `relative`,
   },
   ".code-title": {
     backgroundColor: tint(`primary`, 0.7),
     color: `black`,
     fontSize: 0,
-    px: 3,
+    px: 2,
     py: 2,
     fontFamily: `consolas`,
     mx: [0, 0, 0, -3],
@@ -200,7 +200,7 @@ const code = {
     fontSize: `1rem`,
   },
   "span.token": {
-    fontSize: `1rem`,
+    fontSize: `0.8rem`,
   },
   ".code-copy-button": {
     fontSize: `0.6rem`,

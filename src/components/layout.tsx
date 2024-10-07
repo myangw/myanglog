@@ -40,6 +40,9 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
         strong: {
           fontSize: `1rem`
         },
+        del: {
+          fontSize: `0.9rem`
+        },
         pre: {
           fontFamily: `monospace`,
           fontSize: `1em`,
