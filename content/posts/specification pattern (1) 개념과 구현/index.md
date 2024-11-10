@@ -7,7 +7,13 @@ tags:
   - DDD
   - 패턴 
 ---
+
+## intro
+
 specification pattern은 팀에서 스터디도 하고 여러 프로젝트에 쏠쏠하게 써먹으며 변하기 쉬운 정책/규칙들에 대해 대응하는데 활용하고 있다. 이번 글에서는 specification이 어떤 패턴인지, 적용하기 전과 후에 어떻게 달라질 수 있는지 소개해보려고 한다.
+
+
+## specification 패턴이란?
 
 specification pattern은 객체지향 프로그래밍에서 도메인에 대한 특정한 규칙들을 간결하게 표현할 수 있도록 해준다. **도메인 내부에 구현하는 조건 로직**들로부터 **규칙**을 분리해서 규칙이 명시적으로 드러나게 한다. 조건이 단순하다면 굳이 분리할 필요가 없겠지만, 비즈니스 요구사항들이 추가되다보면 entity나 value object 본연의 목적 그 이상으로 규칙이 다양하고 여러모양으로 조합될 수 있다. 이때 entity나 value object가 특정 기준을 만족하는지 판단하는 술어(predicate)로 분리된 specification을 만든다.
 
@@ -19,16 +25,18 @@ interface Specification {
 
 규칙을 표현하기 위해서 여러 Specification을 구현하고, 논리적으로 술어를 and, or, not 등의 연산자로 결합해서 객체가 어떤 기준을 만족하는지를 나타낼 수 있다. 
 
-술어를 결합한다는 것은- 공연 입장 가능 정책을 예로 들어보면
+여기서 술어를 결합한다는 것은- 공연 입장 가능 정책을 예로 들어보면
 
 ```java
 // 입장가능한가 = (티켓이 있는가) and not(공연시작시간이_지났는가)
 boolean isEntryAllowed = hasTicket(customer).and(not(hasPerformanceStarted()));
 ```
 
-→ `isEntryAllowed`처럼 상세 조건 각각을 Specification 인터페이스를 구현하는 구체적 Specification으로 만들어서 결합하여 나타내는 것이다.
+→ `isEntryAllowed`처럼 상세 조건 각각을 Specification 인터페이스를 구현하는 구체적 Specification들의 결합으로 나타내는 것이다.
 
 .
+
+## 예시
 
 주절주절 설명만으로 크게 와닿지 않을 것 같다. 특정한 상황에서 specification이 어떻게 유용해지는지 예시를 들어보려 한다. ('도메인주도설계' 책 예시를 가져와 살을 덧붙였다.)
 
@@ -235,10 +243,16 @@ private void send(Invoice invoice) {
 
 .
 
+
+## 마무리
 specification은 흔히 composite나 singleton패턴처럼 Gang of Four(GoF) 디자인 패턴 책에 소개된 패턴은 아니라 처음에 들었을 때 생소했다. 마틴파울러와 에릭 에반스가 개발한 패턴으로 ‘도메인 주도 설계(에릭 에반스)’ 책 9, 10장과 마틴 파울러의 paper에 설명되어있다. 이것은 디자인 패턴이자 분석패턴(사람들이 도메인에 대해 어떻게 생각하는지를 포착하는 방식) 이라고 파울러는 소개한다. 
 
 ‘도메인 주도 설계’ 책에 나오는 패턴에 대한 세분화된 예시들이나 실제 썼던 활용들에 대해서는 다음 글에서 좀더 다뤄보려고 한다.
 
-### 참고
+
+## 참고
 - [에릭 에반스, '도메인 주도 설계'](https://product.kyobobook.co.kr/detail/S000001514402)
 - [마틴 파울러, Specification](https://www.martinfowler.com/apsupp/spec.pdf)
+
+
+- [예제 코드 github](https://github.com/myangw/specification-example)

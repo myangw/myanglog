@@ -39,7 +39,7 @@ tags:
 
 예시>
 
-- 화물 배송 application: 상하이 → 베이징 여러 경로들을 사용해서 육류 화물을 운송하는 일정을 만들어낸다.
+- 화물 배송 application: 출발지-> 목적지까지 여러 경로들을 사용해서 육류 화물을 운송하는 일정을 만들어낸다.
 - 화학창고 포장(packing) application: 폭발성 화학물질 등 조건을 만족하는 화학물질을 담을 수 있는 포장기를 만들어낸다.
 
 ⇒ 위 세가지 케이스들은 엄밀하게 구분되지 않기도 한다. 비즈니스 요구사항에 따라 검증을 위해 만들어놓은 specification을 다른 기능을 위해 생성 용도로 활용할 수도 있다. 개념적으로 도메인에 대한 규칙이란 점에선 동일하기 때문이다. 그러나 specification을 사용하지 않는다면 동일한 규칙임에도 불구하고 각기 다른 구현 방식으로 표현하게 될 수도 있다. 
@@ -232,3 +232,5 @@ public abstract class Specification<T> {
 - [마틴 파울러, Specification](https://www.martinfowler.com/apsupp/spec.pdf)
 - [에릭 에반스, '도메인 주도 설계'](https://product.kyobobook.co.kr/detail/S000001514402)
 
+
+- [예제 코드 github](https://github.com/myangw/specification-example)
