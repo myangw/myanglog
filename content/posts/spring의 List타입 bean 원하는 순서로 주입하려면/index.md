@@ -10,7 +10,7 @@ tags:
 
 
 ## intro
-spring을 늘 쓰지만 자주 접하지 않는 상황에선 설정이 헷갈릴 때가 있다. 얼마 전 한 프로젝트의 bean 설정을 확인하다가 아래 코드와 같이 List타입과 List 내부에 있는 객체 타입 (편의상 `List<T>` 타입과 T 타입 이라고 하겠다) 의 설정이 둘 다 있는 경우를 마주했다. 
+spring을 늘 쓰지만 자주 접하지 않는 상황에선 설정이 헷갈릴 때가 있다. 얼마 전 한 프로젝트의 bean 설정을 확인하다가 아래 코드와 같이 List타입과 List 내부에 있는 객체 타입 (편의상 `List<T>` 타입과 `T` 타입 이라고 하겠다) 의 설정이 둘 다 있는 경우를 마주했다. 
 
 ```java
   @Bean
@@ -38,6 +38,7 @@ spring을 늘 쓰지만 자주 접하지 않는 상황에선 설정이 헷갈릴
   }
 ```
 
+`List<Cake>` 을 주입받아 사용하는 코드:
 ```java
 @Component
 class Bakery {
@@ -65,11 +66,10 @@ class Bakery {
 2. `List<T>`만 정의했을 때와 동작이 어떻게 다른가? (왜 `List<T>`는 무시되는가)
 3. 순서를 명시적으로 지정하는 방법은 무엇일까? 
 
-.
 #
-## 1. `List<T>` 타입과 `T` 타입이 둘 다 bean으로 등록되어있을 때, 정확히 어떻게 동작하는가?
+### 1. `List<T>` 타입과 `T` 타입이 둘 다 bean으로 등록되어있을 때, 정확히 어떻게 동작하는가?
 
-한가지 잊고있었던 사실은 List<T>를 선언하지 않더라도 T 타입의 bean들이 있으면 List필드로 주입이 된다는 거였다.
+한가지 잊고있었던 사실은 `List<T>`를 선언하지 않더라도 `T` 타입의 bean들이 있으면 List필드로 주입이 된다는 거였다.
 
 의존성 주입 시 스프링 컨텍스트는 타입이 같은 모든 빈 객체들을 찾아 List에 빈을 주입한다.
 
@@ -85,7 +85,7 @@ class Bakery {
 }
 ```
 
-이렇게 bean 설정하고 나면 아래 Bakery에 주입되는 List<Cake>에는 초코, 딸기 케이크가 다 포함된다.
+이렇게 bean 설정하고 나면 아래 Bakery에 주입되는 `List<Cake>`에는 초코, 딸기 케이크가 다 포함된다.
 
 ```java
 @Component
@@ -125,13 +125,13 @@ class Bakery {
       return new Cake("딸기");
   }
 
-	/** 실수로 bean 어노테이션을 빼먹었다고 가정 **/
+/** 실수로 bean 어노테이션을 빼먹었다고 가정 **/
   Cake lemonCake() {
       return new Cake("레몬");
   }
 ```
 
-⇒ `@Bean`으로 선언한 초코 딸기만 주입됨.
+⇒ `@Bean`으로 선언한 초코,딸기 케이크만 주입된다.
 
   ![/image1.png](image1.png)
 
@@ -141,11 +141,9 @@ class Bakery {
 
 ** spring 버전: 6.1.14
 
-검색을 하다가 `DefaultListableBeanFactory` 라는 클래스를 발견했고, 한참 읽고 이곳 저곳 찍어보다가 주입할 객체들을 찾는 코드를 발견했다. 
-
-- `doResolveDependency` 메서드. 이름만 봐도 관련이 있어보인다.
-    - 이 메서드는 같은 클래스의 `resolveMultipleBeans` 를 호출 >>`resolveMultipleBeanCollection` 호출
-    - `resolveMultipleBeanCollection` 내부:
+검색을 하다가 `DefaultListableBeanFactory` 라는 클래스를 발견했고, 이곳 저곳 찍어보다가 주입할 객체들을 찾는 `doResolveDependency` 메서드를 발견했다. 이름만 봐도 관련이 있어보인다.
+- 이 메서드는 같은 클래스의 `resolveMultipleBeans` 를 호출하고, 그 안에서 `resolveMultipleBeanCollection`가 호출된다.
+- `resolveMultipleBeanCollection` 내부 코드를 보면:
     
     ```java
     @Nullable
@@ -191,7 +189,10 @@ if (multipleBeans != null) {
 }
 ```
 
-## 2. `List<T>` 타입의 bean만 정의했을 때와 동작이 어떻게 다른가?
+
+#
+
+### 2. `List<T>` 타입의 bean만 정의했을 때와 동작이 어떻게 다른가?
 
 List만 bean으로 설정한 뒤 똑같은 부분을 확인해봤다. 
 
@@ -204,15 +205,16 @@ private Object resolveMultipleBeanCollection(DependencyDescriptor descriptor, @N
   Class<?> elementType = descriptor.getResolvableType().asCollection().resolveGeneric(new int[0]);
 ```
 
-- 이후  `this.findAutowireCandidates(beanName, elementType, new MultiElementDescriptor(descriptor));`  메서드를 호출할 때 elementType은 `Cake.class` 가 된다.
+- 이후  `this.findAutowireCandidates` 메서드를 호출할 때 elementType 인자는 `Cake.class` 가 된다.
     - 그렇지만 이번에는 List타입의 bean만 설정해주었기 때문에 이 메서드는 bean을 찾지 못하고 끝난다.
 
 이 다음 동작은
 
 - `doResolveDependency`로 돌아가서,  또다시 findAutowireCandidates를 호출하는데, 이번에는 type에 List를 넘긴다.
 `Map<String, Object> matchingBeans = this.findAutowireCandidates(beanName, type, descriptor);`
-    - 이때는 List타입의 bean은 있으니까 matchingBeans에 `availableCakes` 가 담긴다.
+- 이때는 List타입의 bean은 있으니까 matchingBeans에 `availableCakes` 가 담긴다.
 
+#
 ⇒ 여기까지 본걸로 정리해보면
 
 - 스프링 코드 상으로 주입이 필요한 필드가 List타입일 때,
@@ -329,11 +331,13 @@ public Object doResolveDependency(DependencyDescriptor descriptor, @Nullable Str
 }
 ```
 
-## 3. 순서를 명시적으로 지정하는 방법은 무엇일까? 어떻게 동작하나?
+#
+
+### 3. 순서를 명시적으로 지정하는 방법은 무엇일까? 어떻게 동작하나?
 
 1. List안에 포함되는 각각의 객체가 꼭 bean이어야 하는지 다시 생각해볼 필요가 있다. 아니라면 List 타입만 bean으로 정의하면 리스트에 넣는 순서대로 주입이 된다. 
     
-    ```jsx
+    ```java
         @Bean
         List<Cake> availableCakes() {
             return List.of(
@@ -387,4 +391,5 @@ public Object doResolveDependency(DependencyDescriptor descriptor, @Nullable Str
 
 spring문서에 나와있는 방법이고 @Order 만 붙이면 되어서 간편하긴 한데, 아쉬운 것은 각각의 bean 메서드를 확인해야만 전체 순서를 알 수 있다는 것.. 나중의 나 / 다른 팀원에게 어려울 수 있다.
 
+#
 어떤 방법을 선택할지 고민하기 전에 근본적으로 왜 여기에서 순서를 지정해야하는지, 다른 방법으로 더 심플하게 해결할 수는 없는지도 생각해봐야할 것 같다.
