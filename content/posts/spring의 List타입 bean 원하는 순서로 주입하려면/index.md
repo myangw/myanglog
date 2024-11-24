@@ -85,7 +85,7 @@ class Bakery {
 }
 ```
 
-이렇게 bean 설정하고 나면 아래 Bakery에 주입되는 `List<Cake>`에는 초코, 딸기 케이크가 다 포함된다.
+위 코드처럼 bean 설정하고 나면 아래 Bakery에 주입되는 `List<Cake>`에는 초코, 딸기 케이크가 다 포함된다.
 
 ```java
 @Component
@@ -99,7 +99,7 @@ class Bakery {
 }
 ```
 
-호옹.. 그렇다면 리스트 타입은 무시하나?? 왜 무시하나??
+호옹.. 그렇다면 리스트 타입 bean은 무시하나?? 왜 무시하나??
 
 살펴보다가 까딱 잘못 쓰면 (물론 테스트를 잘 하면 인지할 수 있지만..) 의도랑 달라질 수 있겠단 생각이 들었다.
 
@@ -131,7 +131,7 @@ class Bakery {
   }
 ```
 
-⇒ `@Bean`으로 선언한 초코,딸기 케이크만 주입된다.
+⇒ `@Bean`으로 선언한 초코,딸기 케이크만 주입된다. ~~(레몬 어디갔어)~~
 
   ![/image1.png](image1.png)
 
@@ -143,43 +143,47 @@ class Bakery {
 
 검색을 하다가 `DefaultListableBeanFactory` 라는 클래스를 발견했고, 이곳 저곳 찍어보다가 주입할 객체들을 찾는 `doResolveDependency` 메서드를 발견했다. 이름만 봐도 관련이 있어보인다.
 - 이 메서드는 같은 클래스의 `resolveMultipleBeans` 를 호출하고, 그 안에서 `resolveMultipleBeanCollection`가 호출된다.
-- `resolveMultipleBeanCollection` 내부 코드를 보면:
-    
-    ```java
-    @Nullable
-    private Object resolveMultipleBeanCollection(DependencyDescriptor descriptor, @Nullable String beanName, @Nullable Set<String> autowiredBeanNames, @Nullable TypeConverter typeConverter) {
-        Class<?> elementType = descriptor.getResolvableType().asCollection().resolveGeneric(new int[0]);
-        if (elementType == null) {
+- `resolveMultipleBeanCollection` 내부를 보면
+- beanName (”bakery”) 에 대한 matchingBeans를 findAutowireCandidates()를 호출해서 찾아낸다.
+
+  ![/image2.png](image2.png)
+  ![/image3.png](image3.png)
+
+** resolveMultipleBeanCollection 코드:
+```java
+@Nullable
+private Object resolveMultipleBeanCollection(DependencyDescriptor descriptor, @Nullable String beanName, @Nullable Set<String> autowiredBeanNames, @Nullable TypeConverter typeConverter) {
+    Class<?> elementType = descriptor.getResolvableType().asCollection().resolveGeneric(new int[0]);
+    if (elementType == null) {
+        return null;
+    } else {
+        Map<String, Object> matchingBeans = this.findAutowireCandidates(beanName, elementType, new MultiElementDescriptor(descriptor));
+        if (matchingBeans.isEmpty()) {
             return null;
         } else {
-            Map<String, Object> matchingBeans = this.findAutowireCandidates(beanName, elementType, new MultiElementDescriptor(descriptor));
-            if (matchingBeans.isEmpty()) {
-                return null;
-            } else {
-                if (autowiredBeanNames != null) {
-                    autowiredBeanNames.addAll(matchingBeans.keySet());
-                }
-    
-                TypeConverter converter = typeConverter != null ? typeConverter : this.getTypeConverter();
-                Object result = converter.convertIfNecessary(matchingBeans.values(), descriptor.getDependencyType());
-                if (result instanceof List) {
-                    List<?> list = (List)result;
-                    if (list.size() > 1) {
-                        Comparator<Object> comparator = this.adaptDependencyComparator(matchingBeans);
-                        if (comparator != null) {
-                            list.sort(comparator);
-                        }
+            if (autowiredBeanNames != null) {
+                autowiredBeanNames.addAll(matchingBeans.keySet());
+            }
+
+            TypeConverter converter = typeConverter != null ? typeConverter : this.getTypeConverter();
+            Object result = converter.convertIfNecessary(matchingBeans.values(), descriptor.getDependencyType());
+            if (result instanceof List) {
+                List<?> list = (List)result;
+                if (list.size() > 1) {
+                    Comparator<Object> comparator = this.adaptDependencyComparator(matchingBeans);
+                    if (comparator != null) {
+                        list.sort(comparator);
                     }
                 }
-    
-                return result;
             }
-    }
-    ```
-    
-- beanName (”bakery”) 에 대한 matchingBeans를 `this.findAutowireCandidates(beanName, elementType, new MultiElementDescriptor(descriptor));` << 여기서 찾아낸다.
 
-- 다시 위로 올라가서. `doResolveDependency`는 주입할 빈을 찾았기 때문에 바로 이것을 리턴하고 끝.
+            return result;
+        }
+}
+```
+
+
+- 다시 처음 호출했던 지점으로 돌아가서, `doResolveDependency`는 주입할 빈을 찾았기 때문에 바로 이것을 리턴하고 끝.
 
 ```java
 Object multipleBeans = this.resolveMultipleBeans(descriptor, beanName, autowiredBeanNames, typeConverter);
@@ -213,6 +217,8 @@ private Object resolveMultipleBeanCollection(DependencyDescriptor descriptor, @N
 - `doResolveDependency`로 돌아가서,  또다시 findAutowireCandidates를 호출하는데, 이번에는 type에 List를 넘긴다.
 `Map<String, Object> matchingBeans = this.findAutowireCandidates(beanName, type, descriptor);`
 - 이때는 List타입의 bean은 있으니까 matchingBeans에 `availableCakes` 가 담긴다.
+- `doResolveDependency` 전체 코드는 너무 길어서 글 최하단에 붙여놨다.
+
 
 #
 ⇒ 여기까지 본걸로 정리해보면
@@ -222,7 +228,144 @@ private Object resolveMultipleBeanCollection(DependencyDescriptor descriptor, @N
         - if 있으면 → 그대로 리턴. (List타입은 따로 찾지 않음)
         - if 없으면 → List타입의 bean을 찾아 리턴.
 
-** 참고.  doResolveDependency() 전체 코드.
+
+#
+
+### 3. 순서를 명시적으로 지정하는 방법은 무엇일까? 
+
+1. List안에 포함되는 각각의 객체가 꼭 bean이어야 하는지 다시 생각해볼 필요가 있다. 아니라면 List 타입만 bean으로 정의하면 리스트에 넣는 순서대로 주입이 된다. 
+    
+    ```java
+        @Bean
+        List<Cake> availableCakes() {
+            return List.of(
+                lemonCake(),
+                chocolateCake(),
+                strawberryCake()
+            );
+        }
+    
+    //    @Bean
+        Cake chocolateCake() {
+            return new Cake("초코");
+        }
+    
+    //    @Bean
+        Cake strawberryCake() {
+            return new Cake("딸기");
+        }
+    
+    //    @Bean
+        Cake lemonCake() {
+            return new Cake("레몬");
+        }
+    ```
+    
+    - ⇒ 결과
+    ```java
+    @Test
+    void test1() {
+        List<Cake> actual = sut.getAvailableCakes();
+
+        assertThat(actual).hasSize(3);
+        assertThat(actual.get(0).getMainIngredient()).isEqualTo("레몬");
+        assertThat(actual.get(1).getMainIngredient()).isEqualTo("초코");
+        assertThat(actual.get(2).getMainIngredient()).isEqualTo("딸기");
+    }
+    // => 통과한다.
+    ```
+
+2. `@Order` 를 사용하기
+- 기본적으로는 scan순서에 따라 bean이 정렬이 되어있는데, `@Order`로 정렬을 하게 되면
+- 지정된 `@Order` 의 값에 따라 bean 순서가 정렬이 된다.
+
+```java
+    @Bean
+    @Order(2)
+    Cake chocolateCake() {
+        return new Cake("초코");
+    }
+
+    @Bean
+    @Order(1)
+    Cake strawberryCake() {
+        return new Cake("딸기");
+    }
+```
+
+⇒ 결과
+```java
+@Test
+void test1() {
+    List<Cake> actual = sut.getAvailableCakes();
+
+    assertThat(actual).hasSize(2);
+    assertThat(actual.get(0).getMainIngredient()).isEqualTo("딸기");
+    assertThat(actual.get(1).getMainIngredient()).isEqualTo("초코");
+}
+// => 통과한다.
+```
+
+
+spring문서에 나와있는 방법이고 @Order 만 붙이면 되어서 간편하긴 한데, 아쉬운 것은 각각의 bean 메서드를 확인해야만 전체 순서를 알 수 있다는 것.. 나중의 나 / 다른 팀원에게 어려울 수 있다.
+
+#
+
+3. Composite로 만들기
+
+주입받는 객체 쪽(지금 예제에서는 Bakery) 을 수정할 여지가 있다면, List타입으로 주입받지 않고 Cake를 주입받게 한 다음 Composite Cake를 만들 수도 있다. (Composite객체에서 리스트를 처리)
+
+```java
+@Component
+class Bakery {
+    private final Cake availableCake;
+
+    Bakery(Cake cake) {
+        this.availableCake = cake;
+    }
+}
+```
+
+```java
+@Bean
+@Primary
+Cake cakeComposite(
+     Cake lemonCake,
+     Cake chocolateCake,
+     Cake strawberryCake
+) {
+    List<Cake> cakes = new ArrayList<>();
+    cakes.add(lemonCake);
+    cakes.add(chocolateCake);
+    cakes.add(strawberryCake);
+    return new CakeComposite(cakes);
+}
+
+@Bean
+Cake chocolateCake() {
+    return new Cake("초코");
+}
+
+@Bean
+Cake strawberryCake() {
+    return new Cake("딸기");
+}
+
+@Bean
+Cake lemonCake() {
+    return new Cake("레몬");
+}
+```
+
+#
+어떤 방법을 선택할지 고민하기 전에 근본적으로 왜 여기에서 순서를 지정해야하는지, 다른 방법으로 더 심플하게 해결할 수는 없는지도 생각해봐야할 것 같다. ///
+
+
+
+#
+
+
+** 참고:  doResolveDependency() 전체 코드
 
 ```java
 @Nullable
@@ -330,66 +473,3 @@ public Object doResolveDependency(DependencyDescriptor descriptor, @Nullable Str
     return type;
 }
 ```
-
-#
-
-### 3. 순서를 명시적으로 지정하는 방법은 무엇일까? 어떻게 동작하나?
-
-1. List안에 포함되는 각각의 객체가 꼭 bean이어야 하는지 다시 생각해볼 필요가 있다. 아니라면 List 타입만 bean으로 정의하면 리스트에 넣는 순서대로 주입이 된다. 
-    
-    ```java
-        @Bean
-        List<Cake> availableCakes() {
-            return List.of(
-                lemonCake(),
-                chocolateCake(),
-                strawberryCake()
-            );
-        }
-    
-    //    @Bean
-        Cake chocolateCake() {
-            return new Cake("Chocolate");
-        }
-    
-    //    @Bean
-        Cake strawberryCake() {
-            return new Cake("Strawberry");
-        }
-    
-    //    @Bean
-        Cake lemonCake() {
-            return new Cake("Lemon");
-        }
-    ```
-    
-    - ⇒ 결과
-    
-  ![/image2.png](image2.png)
-
-2. `@Order` 를 사용하기
-- 기본적으로는 scan순서에 따라 bean이 정렬이 되어있는데, `@Order`로 정렬을 하게 되면
-- 지정된 `@Order` 의 값에 따라 bean 순서가 정렬이 된다.
-
-```java
-    @Bean
-    @Order(2)
-    Cake chocolateCake() {
-        return new Cake("초코");
-    }
-
-    @Bean
-    @Order(1)
-    Cake strawberryCake() {
-        return new Cake("딸기");
-    }
-```
-
-⇒ 결과 
-
-  ![/image3.png](image3.png)
-
-spring문서에 나와있는 방법이고 @Order 만 붙이면 되어서 간편하긴 한데, 아쉬운 것은 각각의 bean 메서드를 확인해야만 전체 순서를 알 수 있다는 것.. 나중의 나 / 다른 팀원에게 어려울 수 있다.
-
-#
-어떤 방법을 선택할지 고민하기 전에 근본적으로 왜 여기에서 순서를 지정해야하는지, 다른 방법으로 더 심플하게 해결할 수는 없는지도 생각해봐야할 것 같다.
