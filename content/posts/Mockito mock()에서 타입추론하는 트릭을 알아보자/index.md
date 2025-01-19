@@ -1,7 +1,7 @@
 ---
-title: "java mock()에서 타입추론하는 트릭을 알아보자"
+title: "Mockito mock()에서 타입추론하는 트릭을 알아보자"
 date: 2025-01-19
-slug: "java mock()에서 타입추론하는 트릭을 알아보자"
+slug: "Mockito mock()에서 타입추론하는 트릭을 알아보자"
 excerpt: "-"
 tags:
   - java
