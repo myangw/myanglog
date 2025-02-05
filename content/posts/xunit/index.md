@@ -70,3 +70,9 @@ tags:
 ### 22, 23장.
 
 - 책 설명에는 ‘테스트를 실행해본다’가 다 생략되어있어서 새로운 테스트 만들 때마다, 리팩토링을 할 때마다 알아서 실행해야함…. 특히 summary는 print해서 확인을 해봐야한다.
+
+# 
+
+
+## 참고 
+* [예제 구현 github repository](https://github.com/myangw/xunit-python)
