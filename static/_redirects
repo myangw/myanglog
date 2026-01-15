@@ -1,4 +1,3 @@
-# Redirect all traffic to new blog at myangw.github.io
-# Redirect /blog paths to root (since new blog doesn't have /blog prefix)
-/blog/*  https://myangw.github.io/:splat  301!
-/*  https://myangw.github.io/:splat  301!
+# Redirect all traffic to new blog at myangw.github.io/ko
+/blog/*  https://myangw.github.io/ko/:splat  301!
+/*  https://myangw.github.io/ko/:splat  301!
